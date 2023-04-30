@@ -1,4 +1,4 @@
-# Config Heandler Documentation
+# Config API Documentation
 
 ## Introduction
 
