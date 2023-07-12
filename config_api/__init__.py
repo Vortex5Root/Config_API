@@ -57,5 +57,20 @@ class Config():
         file = self.path / self.file_name
         with open(file,"w") as config:
             config.write(json.dumps(config))
-            config.close()        
-        
+            config.close()
+
+# Exemple
+# create new config on the defult dir
+exemple = Config("exemple")
+# if you what to add a new sub_dir
+exemple.path = "exmeple_folder"
+# Change file
+exemple.file = "new_exemple"
+# load new file
+exemple.load()
+# The Config varible contain the Config on the Json 
+print(exemple.config)
+# Add new value or change
+exemple.config["row"] = "value"
+# Save
+exemple.save()

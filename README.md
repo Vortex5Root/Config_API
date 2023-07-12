@@ -1,59 +1,91 @@
-# Config API Documentation
+# Documentation
 
 ## Introduction
 
-The Config API is a Python module that allows users to manage configuration files in a structured way. It provides a simple interface to create, read, update, and delete configuration files in a specified directory.
+This documentation provides an overview of the Python code in the Config_API repository, which includes the `Config` class for managing configuration files. The code allows you to create, load, save, and modify JSON-based configuration files easily.
 
 ## Installation
 
-To use the Config API, simply import the `config` class from the module.
+To install the `Config_API` package from the provided GitHub repository, use the following command:
 
-```python
-from config_api import config
+```bash
+poetry add git+https://github.com/Vortex5Root/Config_API.git
 ```
 
-## Getting Started
+## How to use
 
-The `config` class provides several methods to manage configuration files. Here are some examples of how to use them:
+### Config Class
 
-### List all configurations
+#### Creating a Configuration Instance
 
-```python
-cfg = config()
-all_configs = cfg.configs
-print(all_configs)
-```
-
-This will return a list of all the configurations in the `./configs/` directory.
-
-### Add a new configuration file
+To create a new configuration instance, use the `Config` class provided by the `Config_API` package. You can specify the name of the configuration file during initialization. Here's an example:
 
 ```python
-data = {"key": "value"}
-msg = cfg.add_config(data, "new_config", "path/to/dir")
-print(msg)
+from Config_API import Config
+
+# Example
+config = Config("example")
 ```
 
-This will create a new configuration file named `new_config.json` in the `./configs/path/to/dir/` directory with the contents of the `data` dictionary.
+#### Setting the Configuration Path
 
-### Remove a configuration file
+You can set the path for the configuration files using the `path` property of the `Config` instance. By default, the path is set to `"./config/"`. Here's an example of setting a custom path:
 
 ```python
-msg = cfg.remove_config("config_to_remove", "path/to/dir")
-print(msg)
+config.path = "example_folder"
 ```
 
-This will remove the `config_to_remove.json` file from the `./configs/path/to/dir/` directory.
+#### Changing the Configuration File
 
-### Get the contents of a configuration file
+You can change the configuration file within the specified path using the `file_name` property of the `Config` instance. Here's an example:
 
 ```python
-config_data = cfg.get_config("config_to_get", "path/to/dir")
-print(config_data)
+config.file_name = "new_example"
 ```
 
-This will return the contents of the `config_to_get.json` file in the `./configs/path/to/dir/` directory.
+#### Loading a Configuration File
+
+To load a configuration file, use the `load()` method of the `Config` instance. By default, it loads the file from the current path. However, you can specify a different folder by passing it as an argument. Here's an example:
+
+```python
+config.load()  # Load from the current path
+config.load("custom_folder")  # Load from a custom folder
+```
+
+#### Saving a Configuration File
+
+To save the current configuration to a file, use the `save()` method of the `Config` instance. By default, it saves the file to the current path. You can also specify a different folder by passing it as an argument. Here's an example:
+
+```python
+config.save()  # Save to the current path
+config.save("custom_folder")  # Save to a custom folder
+```
+
+#### Modifying the Configuration
+
+Once the configuration file is loaded, you can access and modify its contents through the `config` attribute of the `Config` instance, which represents the JSON data. Here's an example:
+
+```python
+config.config["key"] = "value"  # Add or modify a key-value pair
+```
+
+### Example Usage
+
+Here's an example code snippet demonstrating the usage of the `Config` class:
+
+```python
+from Config_API import Config
+
+# Example
+config = Config("example")
+config.path = "example_folder"
+config.file_name = "new_example"
+config.load()
+print(config.config)
+config.config["row"] = "value"
+config.save()
+```
 
 ## Conclusion
 
-The Config API provides a simple interface to manage configuration files in a structured way. It is easy to use and can be integrated into any Python project.
+The `Config_API` package provides a convenient way to manage configuration files in Python. By using the `Config` class, you can create, load, save, and modify JSON-based configuration files with ease. Feel free to explore the code and customize it according to your needs.
