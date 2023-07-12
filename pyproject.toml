@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "config-api"
+version = "0.1.0"
+description = ""
+authors = ["VortexRoot"]
+readme = "README.md"
+packages = [{include = "config_api"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pathlib = "^1.0.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
