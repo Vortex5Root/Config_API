@@ -6,7 +6,7 @@ from pathlib import Path
 
 class Config():
 
-    main_dir : Path
+    main_dir : Path = Path("./config/")
     file_name_ : str
 
     config_ : dict
