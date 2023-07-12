@@ -6,12 +6,13 @@ from pathlib import Path
 
 class Config():
 
-    main_dir : Path = Path("./config/")
+    main_dir : Path = None
     file_name_ : str
 
-    config_ : dict
+    config : dict
 
     def __init__(self,name):
+        self.path = "./config/"
         self.file_name = name
 
     @property
@@ -20,21 +21,21 @@ class Config():
             return self.main_dir
 
     @path.setter
-    def path(self,value):
+    def path(self,value : str):
         if self.main_dir is not None:
-            value = self.main_dir / value
+            value = self.main_dir / value 
         else:
             value = Path(value)
+        self.main_dir = value
         if not self.main_dir.exists():
             self.main_dir.mkdir()
-        self.main_dir = value
     
     @property
     def file_name(self):
         return self.file_name_
     
     @file_name.setter
-    def file_name(self,value):
+    def file_name(self,value : str):
         check = self.path / "{}.json".format(value)
         if not check.exists():
             with open(check,"w") as file:
@@ -42,34 +43,18 @@ class Config():
                 file.close()
         self.file_name_ = value
 
-    def load(self,folder= ""):
+    def load(self,folder : str = ""):
         if folder != "":
             self.path = folder
-        file = self.path / self.file_name
+        file = self.path / "{}.json".format(self.file_name)
         with open(file,"r") as config:
             self.config = json.loads(config.read())
             config.close()
 
-    def save(self,folder=""):
+    def save(self,folder : str =""):
         if folder != "":
             self.path = folder
-        file = self.path / self.file_name
+        file = self.path / "{}.json".format(self.file_name)
         with open(file,"w") as config:
-            config.write(json.dumps(config))
+            config.write(json.dumps(self.config))
             config.close()
-
-# Exemple
-# create new config on the defult dir
-exemple = Config("exemple")
-# if you what to add a new sub_dir
-exemple.path = "exmeple_folder"
-# Change file
-exemple.file = "new_exemple"
-# load new file
-exemple.load()
-# The Config varible contain the Config on the Json 
-print(exemple.config)
-# Add new value or change
-exemple.config["row"] = "value"
-# Save
-exemple.save()
