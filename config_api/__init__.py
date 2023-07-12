@@ -12,7 +12,6 @@ class Config():
     config_ : dict
 
     def __init__(self,name):
-        self.path = "./config/"
         self.file_name = name
 
     @property
